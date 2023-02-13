@@ -1,1 +1,55 @@
-Без труда не выловишь и рыбку из пруда.
+резко начал писать калькулятор 
+from tkinter import *
+
+
+def set_value(formula):
+
+    if formula == '':
+        lable1['text']= '0'
+    else:
+        lable1['text']= str(eval(formula))
+
+def logicalc(operation):
+
+    if operation == 'C':
+        set_value('')
+    elif operation == 'DEL':
+        set_value(lable1['text'][0:-1])
+    elif operation == 'X^2':
+        set_value(str((eval(lable1['text']))**2))
+    elif operation == '=':
+        set_value(lable1['text'])
+    else:
+        if lable1['text'] == '0':
+            lable1['text'] = ''
+        lable1['text'] = lable1['text'] + operation
+
+calc = Tk()
+calc['background'] = '#000000'
+calc.geometry('485x550')
+calc.title('Калькулятор')
+calc.resizable(False, False)
+
+lable1 = Label(text= '0', font= 'Consolas 21 bold', bg= 'black', foreground= 'white')
+lable1.place(x= 11, y= 50)
+
+buttons = ["C", "DEL", "*", "=", "1", "2", "3", "/", "4", "5", "6", "+",
+           "7", "8", "9", "-", "(", "0", ")", "X^2"]
+
+x, y = 10, 140
+
+for button in buttons:
+
+    com = lambda x= button: logicalc(x)
+
+    Button(text= button, background= '#EE82EE', foreground= 'black', 
+    font= 'Consolas 21 bold', 
+    command= com).place(x= x, y= y, width= 115, height= 80)
+
+    x = x + 117
+
+    if x > 400:
+        y = y + 82
+        x = 10
+
+calc.mainloop()
